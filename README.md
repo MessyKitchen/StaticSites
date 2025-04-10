@@ -11,6 +11,14 @@ Lessons Learned: Combining HTML CSS and Python, basic command line and Git relat
 
 GIT _ LOG :
 
+messy@Booker:~/workspace/github.com/messykitchen/StaticSites$ git log
+commit 7f4b22a67620c3b6c9c6fe8af3722fc1ddc30950 (HEAD -> main)
+Author: Messy <MorbidAngel696@gmail.com>
+Date:   Thu Apr 10 12:31:37 2025 +1000
+
+    Added test.sh and test_textnode.py. Ran some unit tests, all passed.
+
+commit 62d8a8883f6322785e84daeb255de0617b07c7d4 (origin/main, origin/HEAD)
 Author: Messy <MorbidAngel696@gmail.com>
 Date:   Thu Apr 10 11:29:45 2025 +1000
 
@@ -22,7 +30,7 @@ Date:   Thu Apr 10 10:35:46 2025 +1000
 
     Added index.html and tested
 
-commit 8e2c6e40e034f8edc3d815797a71b989067b4840 (origin/main, origin/HEAD)
+commit 8e2c6e40e034f8edc3d815797a71b989067b4840
 Author: Messy <149766964+MessyKitchen@users.noreply.github.com>
 Date:   Fri Mar 7 11:42:25 2025 +1100
 
