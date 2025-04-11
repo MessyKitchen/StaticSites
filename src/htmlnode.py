@@ -56,3 +56,37 @@ class LeafNode(HTMLNode):
             attributes = " ".join(f'{key}="{value}"' for key, value in self.props.items())
             return f"<{self.tag} {attributes}>{self.value}</{self.tag}>"
         return f"<{self.tag}>{self.value}</{self.tag}>"
+    
+class ParentNode(HTMLNode):
+        def __init__(self, tag, children, props=None):
+            if tag is None:
+                raise ValueError("ParentNode cannot render HTML without a tag.")
+            
+            if not children:
+                raise ValueError("Children is required for a ParentNode and cannot be empty.")
+            if not all(isinstance(child, HTMLNode) for child in children):
+                raise TypeError("All children must be instances of HTMLNode or its subclasses.")
+            
+            super().__init__(tag=tag, value=None, props=props, children=children)
+
+        def to_html(self):
+            if not self.tag:
+                raise ValueError("Tag is required to convert to HTML.")
+            
+            if not self.children:
+                raise ValueError("Children must be provided and cannot be empty.")
+            
+            # Handle props and format attributes
+            attributes = ""
+            if self.props:
+                attributes = " " + " ".join(f'{key}="{value}"' for key, value in self.props.items())
+            print(f"DEBUG: attributes = '{attributes}'")  # Debug props/attributes
+            
+            # Assemble HTML from children
+            child_html = ""
+            for child in self.children:
+                child_html += child.to_html()
+            print(f"DEBUG: child_html = '{child_html}'")
+            
+            # Wrap the children in the opening and closing tag, including attributes
+            return f"<{self.tag}{attributes}>{child_html}</{self.tag}>"

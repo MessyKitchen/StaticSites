@@ -11,6 +11,12 @@ Lessons Learned: Combining HTML CSS and Python, basic command line and Git relat
 
 GIT _ LOG :
 
+commit 8a498bbc641371f4819be53daff7ffa6739cc991 (HEAD -> main)
+Author: Messy <MorbidAngel696@gmail.com>
+Date:   Fri Apr 11 09:43:30 2025 +1000
+
+    Added LeafNode, unit tested and comments throughout.
+
 commit 1c461bc40c357e25602a1a049f1ad5f528378fbc (HEAD -> main, origin/main, origin/HEAD)
 Author: Messy <MorbidAngel696@gmail.com>
 Date:   Thu Apr 10 13:12:10 2025 +1000
