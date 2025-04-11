@@ -1,6 +1,7 @@
 # src/test_htmlnode.py
 import unittest
-from htmlnode import HTMLNode, LeafNode, ParentNode  # Import from the same directory
+from htmlnode import HTMLNode, LeafNode, ParentNode, text_node_to_html_node
+from textnode import TextType, TextNode
 
 #HTMLNode
 class TestHTMLNode(unittest.TestCase):
@@ -65,7 +66,6 @@ class TestParentNode(unittest.TestCase):
     def test_simple_parent_with_leaf(self):
         child_node = LeafNode("hello", "span")
         parent_node = ParentNode("div", props=None, children=[child_node])
-        print(parent_node.to_html())
         assert parent_node.to_html() == "<div><span>hello</span></div>"
         
 
@@ -102,6 +102,55 @@ class TestParentNode(unittest.TestCase):
         else:
             assert False, "Expected ValueError was not raised."
 
+
+#Text_to_HTML
+    class TestTextNodeToHtmlNode(unittest.TestCase):
+        
+        def test_text(self):
+            # Testing conversion of a TextNode with TEXT type to an HTMLNode
+            # This is the most basic case - plain text without any formatting
+            node = TextNode("This is a text node", TextType.TEXT)
+            html_node = text_node_to_html_node(node)
+            
+            # For plain text, we don't want any HTML tag - it should just be rendered as is
+            # So the tag should be None to indicate no wrapping element
+            self.assertEqual(html_node.tag, None)
+            
+            # The text content should be preserved exactly as it was
+            # This ensures the conversion doesn't alter the original text
+            self.assertEqual(html_node.value, "This is a text node")
+    
+    # Note: We don't test for props here since plain text doesn't need any HTML attributes
+
+        def test_bold(self):
+            # Testing conversion of a TextNode with BOLD type to an HTMLNode
+            # We're verifying that a bold text node is properly converted to an HTML <b> element
+            node = TextNode("Bold text", TextType.BOLD)
+            html_node = text_node_to_html_node(node)
+
+            # The HTML representation of bold text uses the <b> tag
+            self.assertEqual(html_node.tag, "b")
+
+            # The text content should be preserved during conversion
+            self.assertEqual(html_node.value, "Bold text")
+
+            # Bold text doesn't need any special HTML attributes/properties
+            self.assertEqual(html_node.props, {})
+
+        def test_link(self):
+            # Testing conversion of a TextNode with LINK type to an HTMLNode
+            # Links need both text content and a URL to be valid
+            node = TextNode("Click here", TextType.LINK, "https://example.com")
+            html_node = text_node_to_html_node(node)
+
+            # The HTML representation of a link uses the <a> tag
+            self.assertEqual(html_node.tag, "a")
+
+            # The link text should appear as the content of the <a> tag
+            self.assertEqual(html_node.value, "Click here")
+
+            # The URL must be set as the "href" attribute for the link to work in HTML
+            self.assertEqual(html_node.props, {"href": "https://example.com"})
 
 if __name__ == "__main__":
     unittest.main()

@@ -11,6 +11,14 @@ Lessons Learned: Combining HTML CSS and Python, basic command line and Git relat
 
 GIT _ LOG :
 
+Added text_node_to_html_node
+
+commit 4e125e6fd8a09332c70d0fdba710e6bd1c3afa70 (HEAD -> main)
+Author: Messy <MorbidAngel696@gmail.com>
+Date:   Fri Apr 11 11:09:24 2025 +1000
+
+    Added ParentNode, Unittests. Had some issues, was a typo..
+
 commit 8a498bbc641371f4819be53daff7ffa6739cc991 (HEAD -> main)
 Author: Messy <MorbidAngel696@gmail.com>
 Date:   Fri Apr 11 09:43:30 2025 +1000

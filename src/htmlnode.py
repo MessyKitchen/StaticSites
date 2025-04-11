@@ -1,3 +1,5 @@
+from textnode import TextType, TextNode
+
 
 class HTMLNode:
     def __init__(self, tag=None, value=None, children=None, props=None):
@@ -80,13 +82,28 @@ class ParentNode(HTMLNode):
             attributes = ""
             if self.props:
                 attributes = " " + " ".join(f'{key}="{value}"' for key, value in self.props.items())
-            print(f"DEBUG: attributes = '{attributes}'")  # Debug props/attributes
             
             # Assemble HTML from children
             child_html = ""
             for child in self.children:
                 child_html += child.to_html()
-            print(f"DEBUG: child_html = '{child_html}'")
             
             # Wrap the children in the opening and closing tag, including attributes
             return f"<{self.tag}{attributes}>{child_html}</{self.tag}>"
+        
+def text_node_to_html_node(text_node):
+    # The value always comes first in your LeafNode constructor
+    if text_node.text_type == TextType.TEXT:
+        return LeafNode(text_node.text)  # No tag for plain text
+    elif text_node.text_type == TextType.BOLD:
+        return LeafNode(text_node.text, "b")  # Text first, then "b" tag
+    elif text_node.text_type == TextType.ITALIC:
+        return LeafNode(text_node.text, "i")  # Text first, then "i" tag
+    elif text_node.text_type == TextType.CODE:
+        return LeafNode(text_node.text, "code")  # Text first, then "code" tag
+    elif text_node.text_type == TextType.LINK:
+        return LeafNode(text_node.text, "a", {"href": text_node.url})  # Text, "a" tag, then href prop
+    elif text_node.text_type == TextType.IMAGE:
+        return LeafNode("", "img", {"src": text_node.url, "alt": text_node.text})  # Empty text, "img" tag, props
+    else:
+        raise ValueError(f"Invalid TextType: {text_node.text_type}")
